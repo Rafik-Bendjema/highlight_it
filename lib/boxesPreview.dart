@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:highlight_it/addQuote.dart';
 import 'package:highlight_it/text_block.dart';
 
 class ImageWithBoxes extends StatefulWidget {
@@ -106,7 +107,7 @@ class _ImageWithBoxesState extends State<ImageWithBoxes> {
                   }),
                   // Display the result on the screen (optional)
                   Positioned(
-                    bottom: 20,
+                    top: 10,
                     left: 0,
                     right: 0,
                     child: Container(
@@ -118,6 +119,24 @@ class _ImageWithBoxesState extends State<ImageWithBoxes> {
                       ),
                     ),
                   ),
+                  Positioned(
+                      bottom: 10,
+                      left: 0,
+                      right: 0,
+                      child: ElevatedButton(
+                          style: const ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll(
+                                  Color.fromARGB(255, 102, 102, 102))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Addquote()));
+                          },
+                          child: const Text(
+                            "Save",
+                            style: TextStyle(color: Colors.white),
+                          ))),
                 ],
               ),
             );

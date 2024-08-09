@@ -4,11 +4,13 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:highlight_it/ImageViewPage.dart';
+import 'package:highlight_it/database/database.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 late List<CameraDescription> _cameras;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseImpl().database;
   _cameras = await availableCameras();
   print("here is the available cameras ${_cameras.length}");
   runApp(const MaterialApp(home: MyApp()));
