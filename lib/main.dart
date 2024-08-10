@@ -96,12 +96,57 @@ class _MyAppState extends State<MyApp> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 20,
-                left: MediaQuery.of(context).size.width / 2 - 25,
-                child: Container(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.purple,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.settings,
+                              color: Colors.white,
+                            )),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.purple,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.history_edu,
+                              color: Colors.white,
+                            )),
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.vertical(bottom: Radius.circular(20))),
+                    child: CameraPreview(
+                      controller,
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(20),
                   width: 50,
                   decoration: const BoxDecoration(
                       color: Colors.purple,
@@ -115,13 +160,8 @@ class _MyAppState extends State<MyApp> {
                         color: Colors.white,
                       )),
                 ),
-              ),
-              Center(
-                child: CameraPreview(
-                  controller,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

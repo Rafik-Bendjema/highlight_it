@@ -131,7 +131,8 @@ class _ImageWithBoxesState extends State<ImageWithBoxes> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Addquote()));
+                                    builder: (context) =>
+                                        Addquote(content: result)));
                           },
                           child: const Text(
                             "Save",

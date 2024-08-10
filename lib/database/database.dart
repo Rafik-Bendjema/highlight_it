@@ -42,7 +42,7 @@ class DatabaseImpl {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             book TEXT,
             page INTEGER,
-            color TEXT,
+            color INTEGER,
             category INTEGER,
             FOREIGN KEY (category) REFERENCES category(id)
           )
