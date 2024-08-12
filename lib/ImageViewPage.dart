@@ -51,19 +51,6 @@ class _ImageviewpageState extends State<Imageviewpage> {
     return [];
   }
 
-  void _navigateToImageWithBoxes(List<TextBoxIntety> boxes) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ImageWithBoxes(
-          imageFile: _img!,
-          originalImageSize: _originalImageSize!,
-          boxes: boxes,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,11 +74,19 @@ class _ImageviewpageState extends State<Imageviewpage> {
             if (snapshot.hasData) {
               List<TextBoxIntety> boxes = snapshot.data!;
               if (boxes.isNotEmpty) {
-                return Center(
-                  child: ElevatedButton(
-                    onPressed: () => _navigateToImageWithBoxes(boxes),
-                    child: const Text('View Image with Boxes'),
-                  ),
+                WidgetsBinding.instance.addPostFrameCallback(
+                  (timeStamp) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImageWithBoxes(
+                          imageFile: _img!,
+                          originalImageSize: _originalImageSize!,
+                          boxes: boxes,
+                        ),
+                      ),
+                    );
+                  },
                 );
               }
             }

@@ -1,8 +1,12 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:highlight_it/ImageViewPage.dart';
+import 'package:highlight_it/book/domain/book_provider.dart';
+import 'package:highlight_it/category/domain/provider/category_provider.dart';
 import 'package:highlight_it/database/database.dart';
+import 'package:highlight_it/quotes/domain/provider/quote_provider.dart';
 import 'package:highlight_it/quotes/presentation/quotesList.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -12,7 +16,7 @@ void main() async {
   await DatabaseImpl().database;
   _cameras = await availableCameras();
   print("here is the available cameras ${_cameras.length}");
-  runApp(const MaterialApp(home: MyApp()));
+  runApp(const ProviderScope(child: MaterialApp(home: MyApp())));
 }
 
 class MyApp extends StatefulWidget {
@@ -123,15 +127,29 @@ class _MyAppState extends State<MyApp> {
                             color: Colors.purple,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        child: IconButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Quoteslist()));
-                            },
-                            icon: const Icon(
-                              Icons.history_edu,
-                              color: Colors.white,
-                            )),
+                        child: Consumer(
+                          builder: (context, ref, child) {
+                            return IconButton(
+                                onPressed: () async {
+                                  await ref
+                                      .read(categoriesProvider.notifier)
+                                      .fetchCategories();
+                                  await ref
+                                      .read(quotesProvider.notifier)
+                                      .fetchQuotes();
+                                  await ref
+                                      .read(booksProvider.notifier)
+                                      .fetchBooks();
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Quoteslist()));
+                                },
+                                icon: const Icon(
+                                  Icons.history_edu,
+                                  color: Colors.white,
+                                ));
+                          },
+                        ),
                       )
                     ],
                   ),
