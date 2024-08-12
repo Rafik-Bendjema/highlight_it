@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:highlight_it/ImageViewPage.dart';
 import 'package:highlight_it/database/database.dart';
+import 'package:highlight_it/quotes/presentation/quotesList.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 late List<CameraDescription> _cameras;
@@ -125,7 +124,10 @@ class _MyAppState extends State<MyApp> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const Quoteslist()));
+                            },
                             icon: const Icon(
                               Icons.history_edu,
                               color: Colors.white,

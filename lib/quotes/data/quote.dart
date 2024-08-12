@@ -1,15 +1,15 @@
 class Quote {
   int? id;
-  String title;
+  String content;
+  int book;
   int? page;
-  int color;
   int? categoryId;
 
   Quote({
     this.id,
-    required this.title,
+    required this.content,
+    required this.book,
     this.page,
-    required this.color,
     this.categoryId,
   });
 
@@ -17,9 +17,9 @@ class Quote {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'book': title,
+      'content': content,
+      'book': book,
       'page': page,
-      'color': color,
       'category': categoryId,
     };
   }
@@ -28,9 +28,9 @@ class Quote {
   factory Quote.fromMap(Map<String, dynamic> map) {
     return Quote(
       id: map['id'] as int?,
-      title: map['book'] as String,
+      content: map['content'] as String,
+      book: map['book'] as int,
       page: map['page'] as int?,
-      color: map['color'] as int,
       categoryId: map['category'] as int?,
     );
   }

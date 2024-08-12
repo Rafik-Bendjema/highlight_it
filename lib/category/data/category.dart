@@ -12,7 +12,6 @@ class CategoryIntety {
   // Convert a Category object into a Map object
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'color': color,
     };

@@ -25,14 +25,22 @@ class DatabaseImpl {
     String path = join(await getDatabasesPath(), 'highlight_it.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, ver) async {
         // Create the category table
         await db.execute('''
           CREATE TABLE category (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
+            color INTEGER , 
             nb_quotes INTEGER DEFAULT 0
+          )
+        ''');
+
+        await db.execute('''
+          CREATE TABLE book (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL
           )
         ''');
 
@@ -40,11 +48,12 @@ class DatabaseImpl {
         await db.execute('''
           CREATE TABLE quote (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            book TEXT,
+            content TEXT,
+            book INTEGER,
             page INTEGER,
-            color INTEGER,
             category INTEGER,
-            FOREIGN KEY (category) REFERENCES category(id)
+            FOREIGN KEY (category) REFERENCES category(id),
+            FOREIGN KEY (book) REFERENCES book(id)
           )
         ''');
 
